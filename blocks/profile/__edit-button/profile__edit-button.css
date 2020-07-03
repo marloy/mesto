@@ -1,0 +1,12 @@
+.profile__edit-button {
+  cursor: pointer;
+  border: 1px solid white;
+  outline: none;
+
+  min-width: 24px;
+  min-height: 24px;
+
+  background-color: inherit;
+
+  /* margin-left: 17px; */
+}
