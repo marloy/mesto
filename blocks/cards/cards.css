@@ -1,0 +1,13 @@
+@import url(./__item/cards__item.css);
+@import url(./__photo/cards__photo.css);
+@import url(./__location/cards__location.css);
+@import url(./__like/cards__like.css);
+@import url(./__description/cards__description.css);
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, 282px);
+  grid-template-rows: repeat(2, 361px);
+  column-gap: 18px;
+  row-gap: 20px;
+}
