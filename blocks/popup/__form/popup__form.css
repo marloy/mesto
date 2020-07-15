@@ -4,3 +4,9 @@
   justify-content: space-between;
   min-height: calc(330px - 72px);
 }
+
+@media screen and (max-height: 420px) {
+  .popup__form {
+    min-height: auto;
+  }
+}
