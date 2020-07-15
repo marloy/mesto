@@ -10,3 +10,10 @@
 
   margin-right: 30px;
 }
+
+@media screen and (max-width: 720px) {
+  .profile__avatar {
+    margin-right: 0;
+    margin-bottom: 14px;
+  }
+}

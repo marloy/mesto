@@ -6,3 +6,10 @@
   background-position: center;
   background-size: cover;
 }
+
+@media screen and (max-width: 400px) {
+  .profile__edit-button-img {
+    width: 7.5px;
+    height: 7.5px;
+  }
+}
