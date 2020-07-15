@@ -7,21 +7,6 @@
   <title>Место</title>
 </head>
 <body class="root">
-  <div class="popup">
-    <div class="popup__container">
-      <button type="button" class="popup__close-button"></button>
-      <form class="popup__form">
-        <h2 class="popup__title">Редактировать профиль</h2>
-        <fieldset class="popup__input-container">
-          <input class="popup__input popup__input_el_name" type="text" name="name">
-          <input class="popup__input popup__input_el_job" type="text" name="job">
-        </fieldset>
-        <fieldset class="popup__handlers">
-          <button type="submit" class="popup__save-button">Сохранить</button>
-        </fieldset>
-      </form>
-    </div>
-  </div>
   <div class="page">
     <header class="header">
       <img src="./images/header-logo.svg" alt="Логотип Mesto" class="header__logo">
@@ -31,12 +16,12 @@
         <div class="profile__avatar"></div>
         <div class="profile__info">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
-          <button class="profile__edit-button">
+          <button type="button" class="profile__edit-button" name="edit-button">
             <div class="profile__edit-button-img"></div>
           </button>
           <p class="profile__job">Исследователь океана</p>
         </div>
-        <button class="profile__add-button">
+        <button type="button" class="profile__add-button" name="add-button">
           <div class="profile__add-button-img"></div>
         </button>
       </section>
@@ -45,42 +30,42 @@
           <img src="./images/cards-karachaevsk.jpg" alt="Храм десятого века в Карачаевске" class="cards__photo">
           <div class="cards__description">
             <p class="cards__location">Карачаевск</p>
-            <div class="cards__like"></div>
+            <button type="button" class="cards__like" name="like-button"></button>
           </div>
         </div>
         <div class="cards__item">
           <img src="./images/cards-elbrus.jpg" alt="Силуэт горы Эльбрус в сумерках" class="cards__photo">
           <div class="cards__description">
             <p class="cards__location">Гора Эльбрус</p>
-            <div class="cards__like"></div>
+            <button type="button" class="cards__like" name="like-button"></button>
           </div>
         </div>
         <div class="cards__item">
           <img src="./images/cards-dombai.jpg" alt="Горы Домбая" class="cards__photo">
           <div class="cards__description">
             <p class="cards__location">Домбай</p>
-            <div class="cards__like"></div>
+            <button type="button" class="cards__like" name="like-button"></button>
           </div>
         </div>
         <div class="cards__item">
           <img src="./images/cards-elbrus.jpg" alt="Силуэт горы Эльбрус в сумерках" class="cards__photo">
           <div class="cards__description">
             <p class="cards__location">Гора Эльбрус</p>
-            <div class="cards__like"></div>
+            <button type="button" class="cards__like" name="like-button"></button>
           </div>
         </div>
         <div class="cards__item">
           <img src="./images/cards-dombai.jpg" alt="Горы Домбая" class="cards__photo">
           <div class="cards__description">
             <p class="cards__location">Домбай</p>
-            <div class="cards__like"></div>
+            <button type="button" class="cards__like" name="like-button"></button>
           </div>
         </div>
         <div class="cards__item">
           <img src="./images/cards-karachaevsk.jpg" alt="Храм десятого века в Карачаевске" class="cards__photo">
           <div class="cards__description">
             <p class="cards__location">Карачаево-Черкесия</p>
-            <div class="cards__like"></div>
+            <button type="button" class="cards__like" name="like-button"></button>
           </div>
         </div>
       </section>
@@ -89,5 +74,21 @@
       <p class="footer__copyright">© 2020 Mesto Russia</p>
     </footer>
   </div>
+  <div class="popup">
+    <div class="popup__container">
+      <button type="button" class="popup__close-button" name="close-button"></button>
+      <form class="popup__form" method="POST">
+        <h2 class="popup__title">Редактировать профиль</h2>
+        <fieldset class="popup__input-container">
+          <input class="popup__input popup__input_el_name" type="text" name="name">
+          <input class="popup__input popup__input_el_job" type="text" name="job">
+        </fieldset>
+        <fieldset class="popup__handlers">
+          <button type="submit" class="popup__save-button" name="save-button">Сохранить</button>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+  <script src="./script/index.js"></script>
 </body>
 </html>

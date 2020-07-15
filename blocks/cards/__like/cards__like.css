@@ -1,5 +1,17 @@
 .cards__like {
   background-image: url(../../../images/cards-like.svg);
+  background-color: transparent;
+
   width: 20.76px;
   height: 18.13px;
+  border: 0;
+  padding: 0;
+
+  cursor: pointer;
+  outline: none;
+  transition: .1s ease-in-out;
+}
+
+.cards__like:hover {
+  transform: scale(1.2);
 }
