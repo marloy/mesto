@@ -23,26 +23,26 @@ function formSubmitHandler (evt) {
     name.textContent = nameInput.value;
     job.textContent = jobInput.value;
 
-    closePopup();
+    togglePopup();
 }
 
-// Открыть попап
-function openPopup() {
-  // Новые значения полей формы
-  nameInput.value = name.textContent;
-  jobInput.value = job.textContent;
-
-  popup.classList.add('popup_opened');
-}
-
-// Закрыть попап
-function closePopup() {
-  popup.classList.remove('popup_opened');
+// Переключатель попапа
+function togglePopup() {
+  if(!popup.classList.contains('popup_opened')) {
+    // Если попап закрыт, взять значения из элементов и добавить в форму
+    nameInput.value = name.textContent;
+    jobInput.value = job.textContent;
+    // Открыть попап
+    popup.classList.add('popup_opened');
+  } else {
+    // Иначе - закрыть
+    popup.classList.remove('popup_opened');
+  }
 }
 
 // Прикрепляем обработчик к форме
 formElement.addEventListener('submit', formSubmitHandler);
 
 // Прикрепляем функции к кнопкам
-openPopupButton.addEventListener('click', openPopup);
-closePopupButton.addEventListener('click', closePopup);
+openPopupButton.addEventListener('click', togglePopup);
+closePopupButton.addEventListener('click', togglePopup);
