@@ -15,6 +15,9 @@
   background-image: url(../../../images/profile-edit-button.svg);
   background-position: center;
   background-repeat: no-repeat;
+
+  align-self: flex-end;
+  margin-bottom: 12px;
 }
 
 .profile__edit-button:hover {
@@ -27,5 +30,6 @@
     min-height: 18px;
     margin-left: 10px;
     background-size: 7.5px;
+    margin-bottom: 17px;
   }
 }

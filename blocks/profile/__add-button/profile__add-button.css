@@ -14,10 +14,18 @@
   background-image: url(../../../images/profile-add-button.svg);
   background-position: center;
   background-repeat: no-repeat;
+
+  margin-left: 20px;
 }
 
 .profile__add-button:hover {
   opacity: .6;
+}
+
+@media screen and (max-width: 720px) {
+  .profile__add-button {
+    margin-left: 0;
+  }
 }
 
 @media screen and (max-width: 400px) {
