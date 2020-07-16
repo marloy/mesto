@@ -9,7 +9,7 @@
 
   background-color: transparent;
 
-  margin-left: 10px;
+  margin-left: 16px;
   transition: opacity .1s ease-out;
 
   background-image: url(../../../images/profile-edit-button.svg);

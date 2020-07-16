@@ -13,7 +13,7 @@
     </header>
     <main class="content">
       <section class="profile">
-        <div class="profile__avatar"></div>
+        <img src="./images/profile-avatar.jpg" alt="Фотография пользователя" class="profile__avatar">
         <div class="profile__info">
           <div class="profile__person">
             <h1 class="profile__name">Жак-Ив Кусто</h1>
@@ -25,53 +25,53 @@
         <button type="button" class="profile__add-button" name="add-button">
         </button>
       </section>
-      <section class="cards">
-        <div class="cards__item">
+      <ul class="cards">
+        <li class="cards__item">
           <img src="./images/cards-karachaevsk.jpg" alt="Храм десятого века в Карачаевске" class="cards__photo">
           <div class="cards__description">
             <p class="cards__location">Карачаевск</p>
             <button type="button" class="cards__like" name="like-button"></button>
           </div>
-        </div>
-        <div class="cards__item">
+        </li>
+        <li class="cards__item">
           <img src="./images/cards-elbrus.jpg" alt="Силуэт горы Эльбрус в сумерках" class="cards__photo">
           <div class="cards__description">
             <p class="cards__location">Гора Эльбрус</p>
             <button type="button" class="cards__like" name="like-button"></button>
           </div>
-        </div>
-        <div class="cards__item">
+        </li>
+        <li class="cards__item">
           <img src="./images/cards-dombai.jpg" alt="Горы Домбая" class="cards__photo">
           <div class="cards__description">
             <p class="cards__location">Домбай</p>
             <button type="button" class="cards__like" name="like-button"></button>
           </div>
-        </div>
-        <div class="cards__item">
+        </li>
+        <li class="cards__item">
           <img src="./images/cards-elbrus.jpg" alt="Силуэт горы Эльбрус в сумерках" class="cards__photo">
           <div class="cards__description">
             <p class="cards__location">Гора Эльбрус</p>
             <button type="button" class="cards__like" name="like-button"></button>
           </div>
-        </div>
-        <div class="cards__item">
+        </li>
+        <li class="cards__item">
           <img src="./images/cards-dombai.jpg" alt="Горы Домбая" class="cards__photo">
           <div class="cards__description">
             <p class="cards__location">Домбай</p>
             <button type="button" class="cards__like" name="like-button"></button>
           </div>
-        </div>
-        <div class="cards__item">
+        </li>
+        <li class="cards__item">
           <img src="./images/cards-karachaevsk.jpg" alt="Храм десятого века в Карачаевске" class="cards__photo">
           <div class="cards__description">
             <p class="cards__location">Карачаево-Черкесия</p>
             <button type="button" class="cards__like" name="like-button"></button>
           </div>
-        </div>
-      </section>
+        </li>
+      </ul>
     </main>
     <footer class="footer">
-      <p class="footer__copyright">© 2020 Mesto Russia</p>
+      <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
     </footer>
   </div>
   <div class="popup">
@@ -80,8 +80,8 @@
       <form class="popup__form" method="POST">
         <h2 class="popup__title">Редактировать профиль</h2>
         <fieldset class="popup__input-container">
-          <input class="popup__input popup__input_el_name" type="text" name="name">
-          <input class="popup__input popup__input_el_job" type="text" name="job">
+          <input class="popup__input popup__input_el_name" type="text" name="nameInput">
+          <input class="popup__input popup__input_el_job" type="text" name="jobInput">
         </fieldset>
         <fieldset class="popup__handlers">
           <button type="submit" class="popup__save-button" name="save-button">Сохранить</button>
