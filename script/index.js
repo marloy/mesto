@@ -47,7 +47,7 @@ const cardTemplate = document.querySelector('.cards-template').content;
 const cardGrid = document.querySelector('.cards__grid');
 
 // Обработчик «отправки» формы
-function formSubmitHandler (evt) {
+const formSubmitHandler = evt => {
     evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы
     // Новые значения с помощью textContent
     personName.textContent = personNameInput.value;
@@ -56,7 +56,7 @@ function formSubmitHandler (evt) {
 }
 
 // Переключатель попапа
-function togglePopup() {
+const togglePopup = () => {
   if(!popupEditProfile.classList.contains('popup_opened')) {
     // Если попап закрыт, взять значения из элементов и добавить в форму
     personNameInput.value = personName.textContent;
@@ -69,6 +69,7 @@ function togglePopup() {
   }
 }
 
+// Создание карточки с навешанными обработчиками кнопок
 const createCard = (name, link) => {
   const cardElement = cardTemplate.cloneNode(true);
   const cardTitle = cardElement.querySelector('.cards__location');
@@ -85,13 +86,13 @@ const createCard = (name, link) => {
   cardLikeButton.addEventListener('click', event => {
     event.target.classList.toggle('cards__like_active');
   });
-
-  cardGrid.append(cardElement);
+  return cardElement;
 }
 
+// Загрузка картинок на страницу из массива
 const renderCards = data => {
   data.forEach(element => {
-    createCard(element.name, element.link);
+    cardGrid.append(createCard(element.name, element.link));
   });
 }
 
