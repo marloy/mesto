@@ -25,51 +25,67 @@ const initialCards = [
   }
 ];
 
-// Находим попап и форму в DOM
+// Находим модалку редактирования профиля и форму  в DOM
 const popupEditProfile = document.querySelector('.popup_type_edit-profile');
-const formElement = popupEditProfile.querySelector('.popup__form');
+const formEditProfile = popupEditProfile.querySelector('.popup__form');
+
+// Находим модалку добавления карточек и форму
+const popupAddCard = document.querySelector('.popup_type_add-card');
+const formAddCard = popupAddCard.querySelector('.popup__form');
+
+// Находим поля формы редактирования профиля
+const personNameInput = formEditProfile.querySelector('.popup__input_el_name');
+const personJobInput = formEditProfile.querySelector('.popup__input_el_job');
+
+// Находим поля формы добавления карточек
+const cardPlaceInput = formAddCard.querySelector('.popup__input_el_place');
+const cardLinkInput = formAddCard.querySelector('.popup__input_el_link');
 
 // Находим кнопки модалки редактирования профиля
 const openEditProfileButton = document.querySelector('.profile__edit-button');
 const closeEditProfileButton = popupEditProfile.querySelector('.popup__close-button');
 const savePopupEditProfileButton = popupEditProfile.querySelector('.popup__save-button');
 
+// Находим кнопки модалки добавления карточки
+const openAddCardButton = document.querySelector('.profile__add-button');
+const closeAddCardButton = popupAddCard.querySelector('.popup__close-button');
+const savePopupAddCardButton = popupAddCard.querySelector('.popup__save-button');
+
 // Находим элементы с именем и родом деятельности
 const personName = document.querySelector('.profile__name');
 const personJob = document.querySelector('.profile__job');
-
-// Находим поля формы
-const personNameInput = formElement.querySelector('.popup__input_el_name');
-const personJobInput = formElement.querySelector('.popup__input_el_job');
 
 // Шаблон и место вставки созданных карточек
 const cardTemplate = document.querySelector('.cards-template').content;
 const cardGrid = document.querySelector('.cards__grid');
 
 // Обработчик «отправки» формы
-const formSubmitHandler = evt => {
+const formSubmitEditProfile = evt => {
     evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы
     // Новые значения с помощью textContent
     personName.textContent = personNameInput.value;
     personJob.textContent = personJobInput.value;
-    togglePopup();
+    togglePopup(popupEditProfile);
+}
+
+const formSubmitAddCard = evt => {
+  evt.preventDefault();
+  cardGrid.prepend(createCard(cardPlaceInput.value, cardLinkInput.value));
+  togglePopup(popupAddCard);
 }
 
 // Переключатель попапа
-const togglePopup = () => {
-  if(!popupEditProfile.classList.contains('popup_opened')) {
-    // Если попап закрыт, взять значения из элементов и добавить в форму
-    personNameInput.value = personName.textContent;
-    personJobInput.value = personJob.textContent;
-    // Открыть попап
-    popupEditProfile.classList.add('popup_opened');
+const togglePopup = modal => {
+  if(!modal.classList.contains('popup_opened')) {
+    // Если попап закрыт - открыть
+    modal.classList.add('popup_opened');
   } else {
     // Иначе - закрыть
-    popupEditProfile.classList.remove('popup_opened');
+    modal.classList.remove('popup_opened');
   }
 }
 
-// Создание карточки с навешанными обработчиками кнопок
+// Создание разметки карточки с навешанными обработчиками кнопок
 const createCard = (name, link) => {
   const cardElement = cardTemplate.cloneNode(true);
   const cardTitle = cardElement.querySelector('.cards__location');
@@ -97,9 +113,24 @@ const renderCards = data => {
 }
 
 // Прикрепляем обработчик к форме
-formElement.addEventListener('submit', formSubmitHandler);
+formEditProfile.addEventListener('submit', formSubmitEditProfile);
+formAddCard.addEventListener('submit', formSubmitAddCard);
 // Прикрепляем функции к кнопкам
-openEditProfileButton.addEventListener('click', togglePopup);
-closeEditProfileButton.addEventListener('click', togglePopup);
+openEditProfileButton.addEventListener('click', () => {
+  personNameInput.value = personName.textContent;
+  personJobInput.value = personJob.textContent;
+  togglePopup(popupEditProfile);
+});
+openAddCardButton.addEventListener('click', () => {
+  cardPlaceInput.value = '';
+  cardLinkInput.value = '';
+  togglePopup(popupAddCard);
+});
+closeEditProfileButton.addEventListener('click', () => {
+  togglePopup(popupEditProfile);
+});
+closeAddCardButton.addEventListener('click', () => {
+  togglePopup(popupAddCard);
+})
 
 renderCards(initialCards);
