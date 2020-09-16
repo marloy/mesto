@@ -24,14 +24,18 @@
 
 @media screen and (max-width: 400px) {
   .popup__close-button {
-    right: -11px;
-    top: -55px;
+    right: -40px;
+    top: -40px;
+    width: 47.56px;
+    height: 47.56px;
   }
 }
 
 @media screen and (max-height: 420px) {
   .popup__close-button {
-    top: -11px;
-    right: -55px;
+    top: -40px;
+    right: -40px;
+    width: 47.56px;
+    height: 47.56px;
   }
 }

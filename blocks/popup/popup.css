@@ -10,17 +10,20 @@
   bottom: 0;
   right: 0;
 
-  display: none;
+  display: flex;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility .25s, opacity .25s ease-out;
 }
 
 @media screen and (max-width: 400px) {
   .popup {
-    padding: 20px;
+    padding: 40px;
   }
 }
 
 @media screen and (max-height: 420px) {
   .popup {
-    padding: 20px;
+    padding: 40px;
   }
 }

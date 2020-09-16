@@ -33,6 +33,11 @@ const formEditProfile = popupEditProfile.querySelector('.popup__form');
 const popupAddCard = document.querySelector('.popup_type_add-card');
 const formAddCard = popupAddCard.querySelector('.popup__form');
 
+// Находим модалку с фотографией
+const popupPhoto = document.querySelector('.popup_type_photo');
+const popupPhotoImage = popupPhoto.querySelector('.popup__photo');
+const popupPhotoTitle = popupPhoto.querySelector('.popup__title-photo')
+
 // Находим поля формы редактирования профиля
 const personNameInput = formEditProfile.querySelector('.popup__input_el_name');
 const personJobInput = formEditProfile.querySelector('.popup__input_el_job');
@@ -50,6 +55,9 @@ const savePopupEditProfileButton = popupEditProfile.querySelector('.popup__save-
 const openAddCardButton = document.querySelector('.profile__add-button');
 const closeAddCardButton = popupAddCard.querySelector('.popup__close-button');
 const savePopupAddCardButton = popupAddCard.querySelector('.popup__save-button');
+
+// Находим кнопку закрытия фотографии
+const closePhotoButton = popupPhoto.querySelector('.popup__close-button');
 
 // Находим элементы с именем и родом деятельности
 const personName = document.querySelector('.profile__name');
@@ -102,7 +110,17 @@ const createCard = (name, link) => {
   cardLikeButton.addEventListener('click', event => {
     event.target.classList.toggle('cards__like_active');
   });
+  cardImage.addEventListener('click', event => {
+    openPhoto(name, link)
+  });
   return cardElement;
+}
+
+const openPhoto = (name, link) => {
+  popupPhotoImage.src = link;
+  popupPhotoTitle.textContent = name;
+
+  togglePopup(popupPhoto);
 }
 
 // Загрузка картинок на страницу из массива
@@ -115,6 +133,7 @@ const renderCards = data => {
 // Прикрепляем обработчик к форме
 formEditProfile.addEventListener('submit', formSubmitEditProfile);
 formAddCard.addEventListener('submit', formSubmitAddCard);
+
 // Прикрепляем функции к кнопкам
 openEditProfileButton.addEventListener('click', () => {
   personNameInput.value = personName.textContent;
@@ -131,6 +150,9 @@ closeEditProfileButton.addEventListener('click', () => {
 });
 closeAddCardButton.addEventListener('click', () => {
   togglePopup(popupAddCard);
+})
+closePhotoButton.addEventListener('click', () => {
+  togglePopup(popupPhoto);
 })
 
 renderCards(initialCards);
