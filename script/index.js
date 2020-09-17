@@ -49,7 +49,6 @@ const cardLinkInput = formAddCard.querySelector('.popup__input_el_link');
 // Находим кнопки модалки редактирования профиля
 const openEditProfileButton = document.querySelector('.profile__edit-button');
 const closeEditProfileButton = popupEditProfile.querySelector('.popup__close-button');
-const savePopupEditProfileButton = popupEditProfile.querySelector('.popup__save-button');
 
 // Находим кнопки модалки добавления карточки
 const openAddCardButton = document.querySelector('.profile__add-button');
@@ -68,18 +67,18 @@ const cardTemplate = document.querySelector('.cards-template').content;
 const cardGrid = document.querySelector('.cards__grid');
 
 // Обработчик «отправки» формы
-const formSubmitEditProfile = evt => {
+const handleSubmitEditProfile = evt => {
     evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы
     // Новые значения с помощью textContent
     personName.textContent = personNameInput.value;
     personJob.textContent = personJobInput.value;
-    togglePopup(popupEditProfile);
+    closePopup(popupEditProfile);
 }
 
-const formSubmitAddCard = evt => {
+const handleSubmitAddCard = evt => {
   evt.preventDefault();
   cardGrid.prepend(createCard(cardPlaceInput.value, cardLinkInput.value));
-  togglePopup(popupAddCard);
+  closePopup(popupAddCard);
 }
 
 // Переключатель попапа
@@ -93,6 +92,21 @@ const togglePopup = modal => {
   }
 }
 
+// Открыть попап
+const openPopup = modal => {
+  modal.classList.add('popup_opened');
+}
+
+// Закрыть попап
+const closePopup = modal => {
+  modal.classList.remove('popup_opened');
+}
+
+// Переключатель лайка
+const toggleLike = (buttonLike) => {
+  buttonLike.classList.toggle('cards__like_active');
+}
+
 // Создание разметки карточки с навешанными обработчиками кнопок
 const createCard = (name, link) => {
   const cardElement = cardTemplate.cloneNode(true);
@@ -103,24 +117,27 @@ const createCard = (name, link) => {
 
   cardTitle.textContent = name;
   cardImage.src = link;
+  cardImage.alt = name;
 
   cardDeleteButton.addEventListener('click', event => {
     event.target.closest('.cards__item').remove();
   });
   cardLikeButton.addEventListener('click', event => {
-    event.target.classList.toggle('cards__like_active');
+    toggleLike(event.target);
   });
-  cardImage.addEventListener('click', event => {
+  cardImage.addEventListener('click', () => {
     openPhoto(name, link)
   });
   return cardElement;
 }
 
+// Открыть модалку с фотографией
 const openPhoto = (name, link) => {
   popupPhotoImage.src = link;
+  popupPhotoImage.alt = name;
   popupPhotoTitle.textContent = name;
 
-  togglePopup(popupPhoto);
+  openPopup(popupPhoto);
 }
 
 // Загрузка картинок на страницу из массива
@@ -131,28 +148,28 @@ const renderCards = data => {
 }
 
 // Прикрепляем обработчик к форме
-formEditProfile.addEventListener('submit', formSubmitEditProfile);
-formAddCard.addEventListener('submit', formSubmitAddCard);
+formEditProfile.addEventListener('submit', handleSubmitEditProfile);
+formAddCard.addEventListener('submit', handleSubmitAddCard);
 
 // Прикрепляем функции к кнопкам
 openEditProfileButton.addEventListener('click', () => {
   personNameInput.value = personName.textContent;
   personJobInput.value = personJob.textContent;
-  togglePopup(popupEditProfile);
+  openPopup(popupEditProfile);
 });
 openAddCardButton.addEventListener('click', () => {
   cardPlaceInput.value = '';
   cardLinkInput.value = '';
-  togglePopup(popupAddCard);
+  openPopup(popupAddCard);
 });
 closeEditProfileButton.addEventListener('click', () => {
-  togglePopup(popupEditProfile);
+  closePopup(popupEditProfile);
 });
 closeAddCardButton.addEventListener('click', () => {
-  togglePopup(popupAddCard);
+  closePopup(popupAddCard);
 })
 closePhotoButton.addEventListener('click', () => {
-  togglePopup(popupPhoto);
+  closePopup(popupPhoto);
 })
 
 renderCards(initialCards);
