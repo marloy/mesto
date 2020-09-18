@@ -81,17 +81,6 @@ const handleSubmitAddCard = evt => {
   closePopup(popupAddCard);
 }
 
-// Переключатель попапа
-const togglePopup = modal => {
-  if(!modal.classList.contains('popup_opened')) {
-    // Если попап закрыт - открыть
-    modal.classList.add('popup_opened');
-  } else {
-    // Иначе - закрыть
-    modal.classList.remove('popup_opened');
-  }
-}
-
 // Открыть попап
 const openPopup = modal => {
   modal.classList.add('popup_opened');
