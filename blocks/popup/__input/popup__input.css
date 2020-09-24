@@ -2,19 +2,19 @@
   font-family: inherit;
   font-size: 14px;
   line-height: 1.2;
+  font-style: normal;
 
   width: 100%;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-top: 15px;
+  padding-bottom: 7px;
   border: 0;
   border-bottom: 1px solid rgba(0, 0, 0, .2);
-  margin-bottom: 20px;
 
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
 }
 
-.popup__input:last-of-type {
-  margin-bottom: 48px;
+.popup__input::placeholder {
+  color: #c4c4c4;
 }
