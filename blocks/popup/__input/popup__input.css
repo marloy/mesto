@@ -4,9 +4,9 @@
   line-height: 1.2;
   font-style: normal;
 
+  box-sizing: border-box;
   width: 100%;
-  padding-top: 15px;
-  padding-bottom: 7px;
+  padding: 10px 0;
   border: 0;
   border-bottom: 1px solid rgba(0, 0, 0, .2);
 
@@ -17,4 +17,16 @@
 
 .popup__input::placeholder {
   color: #c4c4c4;
+}
+
+@media screen and (max-width: 400px) {
+  .popup__input {
+    font-size: 12px;
+    line-height: 1.25;
+  }
+
+  .popup__input::placeholder {
+    font-size: 12px;
+    line-height: 1.25;
+  }
 }

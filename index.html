@@ -38,13 +38,15 @@
       <button type="button" class="popup__close-button" name="edit-profile-close-btn"></button>
       <form class="popup__form" method="POST" name="edit-profile-form">
         <h2 class="popup__title">Редактировать профиль</h2>
-        <fieldset class="popup__input-container">
+        <label class="popup__label">
           <input id="name-input" class="popup__input popup__input_el_name" type="text" name="nameInput" placeholder="Имя">
           <span id="name-input-error" class="popup__input-error"></span>
+        </label>
+        <label class="popup__label">
           <input id="job-input" class="popup__input popup__input_el_job" type="text" name="jobInput" placeholder="Род деятельности">
           <span id="job-input-error" class="popup__input-error"></span>
-          <button type="submit" class="popup__save-button" name="save-button">Сохранить</button>
-        </fieldset>
+        </label>
+        <button type="submit" class="popup__save-button" name="save-button">Сохранить</button>
       </form>
     </div>
   </div>
@@ -53,13 +55,15 @@
       <button type="button" class="popup__close-button" name="add-card-close-button"></button>
       <form class="popup__form" method="POST" name="add-card-form">
         <h2 class="popup__title">Новое место</h2>
-        <fieldset class="popup__input-container">
+        <label class="popup__label">
           <input id="place-input" class="popup__input popup__input_el_place" type="text" name="placeInput" placeholder="Название">
           <span id="place-input-error" class="popup__input-error"></span>
+        </label>
+        <label class="popup__label">
           <input id="link-input" class="popup__input popup__input_el_link" type="text" name="linkInput" placeholder="Ссылка на картинку">
           <span id="link-input-error" class="popup__input-error"></span>
-          <button type="submit" class="popup__save-button" name="create-button">Создать</button>
-        </fieldset>
+        </label>
+        <button type="submit" class="popup__save-button" name="create-button">Создать</button>
       </form>
     </div>
   </div>
