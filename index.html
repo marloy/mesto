@@ -53,8 +53,8 @@
   <div class="popup popup_type_add-card">
     <div class="popup__container">
       <button type="button" class="popup__close-button" name="add-card-close-button"></button>
-      <form class="popup__form" method="POST" name="add-card-form">
-        <h2 class="popup__title">Новое место</h2>
+      <h2 class="popup__title">Новое место</h2>
+      <form class="popup__form" method="POST" name="add-card-form" novalidate>
         <label class="popup__label">
           <input id="place-input" class="popup__input popup__input_el_place" type="text" name="placeInput" placeholder="Название">
           <span id="place-input-error" class="popup__input-error"></span>
@@ -85,5 +85,6 @@
     </li>
   </template>
   <script src="./script/index.js"></script>
+  <script src="./script/validate.js"></script>
 </body>
 </html>
