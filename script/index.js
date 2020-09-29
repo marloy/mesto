@@ -25,8 +25,6 @@ const initialCards = [
   }
 ];
 
-const popup = document.querySelectorAll('.popup');
-
 // Находим модалку редактирования профиля и форму  в DOM
 const popupEditProfile = document.querySelector('.popup_type_edit-profile');
 const formEditProfile = popupEditProfile.querySelector('.popup__form');
@@ -85,9 +83,7 @@ const handleSubmitAddCard = evt => {
 
 const handleKey = evt => {
   if (evt.key === 'Escape') {
-    Array.from(popup).forEach(popup => {
-      closePopup(popup);
-    });
+    closePopup(evt.currentTarget.querySelector('.popup_opened'));
   }
 }
 
