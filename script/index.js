@@ -25,6 +25,8 @@ const initialCards = [
   }
 ];
 
+const popup = document.querySelectorAll('.popup');
+
 // Находим модалку редактирования профиля и форму  в DOM
 const popupEditProfile = document.querySelector('.popup_type_edit-profile');
 const formEditProfile = popupEditProfile.querySelector('.popup__form');
@@ -81,7 +83,13 @@ const handleSubmitAddCard = evt => {
   closePopup(popupAddCard);
 }
 
-// const handle
+const handleKey = evt => {
+  if (evt.key === 'Escape') {
+    Array.from(popup).forEach(popup => {
+      closePopup(popup);
+    });
+  }
+}
 
 // Закрытие по нажатию мыши на оверлей
 const handleClickOnOverlay = evt => {
@@ -93,12 +101,14 @@ const handleClickOnOverlay = evt => {
 // Открыть попап
 const openPopup = modal => {
   modal.addEventListener('click', handleClickOnOverlay);
+  document.addEventListener('keydown', handleKey);
   modal.classList.add('popup_opened');
 }
 
 // Закрыть попап
 const closePopup = modal => {
   modal.removeEventListener('click', handleClickOnOverlay);
+  document.removeEventListener('keydown', handleKey);
   modal.classList.remove('popup_opened');
 }
 
