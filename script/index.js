@@ -81,13 +81,24 @@ const handleSubmitAddCard = evt => {
   closePopup(popupAddCard);
 }
 
+// const handle
+
+// Закрытие по нажатию мыши на оверлей
+const handleClickOnOverlay = evt => {
+  if (evt.target.classList.contains('popup')) {
+    closePopup(evt.target);
+  }
+}
+
 // Открыть попап
 const openPopup = modal => {
+  modal.addEventListener('click', handleClickOnOverlay);
   modal.classList.add('popup_opened');
 }
 
 // Закрыть попап
 const closePopup = modal => {
+  modal.removeEventListener('click', handleClickOnOverlay);
   modal.classList.remove('popup_opened');
 }
 

@@ -2,4 +2,5 @@
   margin: auto;
   max-width: 75vw;
   position: relative;
+  cursor: default;
 }
