@@ -1,3 +1,5 @@
+import Card from './Card.js';
+
 const initialCards = [
   {
       name: 'Архыз',
@@ -33,11 +35,6 @@ const formEditProfile = popupEditProfile.querySelector('.popup__form');
 const popupAddCard = document.querySelector('.popup_type_add-card');
 const formAddCard = popupAddCard.querySelector('.popup__form');
 
-// Находим модалку с фотографией
-const popupPhoto = document.querySelector('.popup_type_photo');
-const popupPhotoImage = popupPhoto.querySelector('.popup__photo');
-const popupPhotoTitle = popupPhoto.querySelector('.popup__title-photo')
-
 // Находим поля формы редактирования профиля
 const personNameInput = formEditProfile.querySelector('.popup__input_el_name');
 const personJobInput = formEditProfile.querySelector('.popup__input_el_job');
@@ -53,17 +50,12 @@ const closeEditProfileButton = popupEditProfile.querySelector('.popup__close-but
 // Находим кнопки модалки добавления карточки
 const openAddCardButton = document.querySelector('.profile__add-button');
 const closeAddCardButton = popupAddCard.querySelector('.popup__close-button');
-const savePopupAddCardButton = popupAddCard.querySelector('.popup__save-button');
-
-// Находим кнопку закрытия фотографии
-const closePhotoButton = popupPhoto.querySelector('.popup__close-button');
 
 // Находим элементы с именем и родом деятельности
 const personName = document.querySelector('.profile__name');
 const personJob = document.querySelector('.profile__job');
 
 // Шаблон и место вставки созданных карточек
-const cardTemplate = document.querySelector('.cards-template').content;
 const cardGrid = document.querySelector('.cards__grid');
 
 // Обработчик «отправки» формы
@@ -77,7 +69,9 @@ const handleSubmitEditProfile = evt => {
 
 const handleSubmitAddCard = evt => {
   evt.preventDefault();
-  cardGrid.prepend(createCard(cardPlaceInput.value, cardLinkInput.value));
+  const element = {name: cardPlaceInput.value, link: cardLinkInput.value};
+  const card = new Card(element, '.cards-template', openPopup, closePopup);
+  cardGrid.prepend(card.getCardElement());
   closePopup(popupAddCard);
 }
 
@@ -108,48 +102,11 @@ const closePopup = modal => {
   modal.classList.remove('popup_opened');
 }
 
-// Переключатель лайка
-const toggleLike = (buttonLike) => {
-  buttonLike.classList.toggle('cards__like_active');
-}
-
-// Создание разметки карточки с навешанными обработчиками кнопок
-const createCard = (name, link) => {
-  const cardElement = cardTemplate.cloneNode(true);
-  const cardTitle = cardElement.querySelector('.cards__location');
-  const cardImage = cardElement.querySelector('.cards__photo');
-  const cardDeleteButton = cardElement.querySelector('.cards__delete-button');
-  const cardLikeButton = cardElement.querySelector('.cards__like');
-
-  cardTitle.textContent = name;
-  cardImage.src = link;
-  cardImage.alt = name;
-
-  cardDeleteButton.addEventListener('click', event => {
-    event.target.closest('.cards__item').remove();
-  });
-  cardLikeButton.addEventListener('click', event => {
-    toggleLike(event.target);
-  });
-  cardImage.addEventListener('click', () => {
-    openPhoto(name, link)
-  });
-  return cardElement;
-}
-
-// Открыть модалку с фотографией
-const openPhoto = (name, link) => {
-  popupPhotoImage.src = link;
-  popupPhotoImage.alt = name;
-  popupPhotoTitle.textContent = name;
-
-  openPopup(popupPhoto);
-}
-
 // Загрузка картинок на страницу из массива
 const renderCards = data => {
   data.forEach(element => {
-    cardGrid.append(createCard(element.name, element.link));
+    const card = new Card(element, '.cards-template', openPopup, closePopup);
+    cardGrid.append(card.getCardElement());
   });
 }
 
@@ -173,9 +130,6 @@ closeEditProfileButton.addEventListener('click', () => {
 });
 closeAddCardButton.addEventListener('click', () => {
   closePopup(popupAddCard);
-})
-closePhotoButton.addEventListener('click', () => {
-  closePopup(popupPhoto);
 })
 
 renderCards(initialCards);
