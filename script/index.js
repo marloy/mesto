@@ -1,4 +1,5 @@
 import Card from './Card.js';
+import FormValidator from './FormValidator.js';
 
 const initialCards = [
   {
@@ -26,6 +27,15 @@ const initialCards = [
       link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
 ];
+
+const config = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__save-button',
+  inactiveButtonClass: 'popup__save-button_inactive',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__input-error_active'
+};
 
 // Находим модалку редактирования профиля и форму  в DOM
 const popupEditProfile = document.querySelector('.popup_type_edit-profile');
@@ -58,6 +68,7 @@ const personJob = document.querySelector('.profile__job');
 // Шаблон и место вставки созданных карточек
 const cardGrid = document.querySelector('.cards__grid');
 
+
 // Обработчик «отправки» формы
 const handleSubmitEditProfile = evt => {
     evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы
@@ -84,7 +95,7 @@ const handleKey = evt => {
 // Закрытие по нажатию мыши на оверлей
 const handleClickOnOverlay = evt => {
   if (evt.target.classList.contains('popup')) {
-    closePopup(evt.target);
+    closePopup(evt.currentTarget);
   }
 }
 
@@ -110,6 +121,14 @@ const renderCards = data => {
   });
 }
 
+const enableValidation = config => {
+  const formlist = Array.from(document.querySelectorAll(config.formSelector));
+  formlist.forEach(formElement => {
+    const validator = new FormValidator(config, formElement);
+    validator.enableValidation();
+  })
+}
+
 // Прикрепляем обработчик к форме
 formEditProfile.addEventListener('submit', handleSubmitEditProfile);
 formAddCard.addEventListener('submit', handleSubmitAddCard);
@@ -118,6 +137,9 @@ formAddCard.addEventListener('submit', handleSubmitAddCard);
 openEditProfileButton.addEventListener('click', () => {
   personNameInput.value = personName.textContent;
   personJobInput.value = personJob.textContent;
+  const event = new Event('input');
+  personNameInput.dispatchEvent(event);
+  personJobInput.dispatchEvent(event);
   openPopup(popupEditProfile);
 });
 openAddCardButton.addEventListener('click', () => {
@@ -133,3 +155,4 @@ closeAddCardButton.addEventListener('click', () => {
 })
 
 renderCards(initialCards);
+enableValidation(config);
