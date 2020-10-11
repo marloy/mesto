@@ -28,8 +28,9 @@ class Card {
   }
 
   _openPhoto() {
-    this._popupPhoto.querySelector('.popup__photo').src = this._link;
-    this._popupPhoto.querySelector('.popup__photo').alt = this._name;
+    this._photo = this._popupPhoto.querySelector('.popup__photo');
+    this._photo.querySelector('.popup__photo').alt = this._name;
+    this._photo.querySelector('.popup__photo').src = this._link;
     this._popupPhoto.querySelector('.popup__title-photo').textContent = this._name;
 
     this._openPopup(this._popupPhoto);
@@ -52,9 +53,8 @@ class Card {
     this._setEventListeners();
 
     this._element.querySelector('.cards__location').textContent = this._name;
-    this._element.querySelector('.cards__photo').src = this._link;
-    this._element.querySelector('.cards__photo').alt = this._name;
-    this._element.querySelector('.cards__location').textContent = this._name;
+    this._cardImage.src = this._link;
+    this._cardImage.alt = this._name;
 
     return this._element;
   }
