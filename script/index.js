@@ -68,6 +68,8 @@ const personJob = document.querySelector('.profile__job');
 // Шаблон и место вставки созданных карточек
 const cardGrid = document.querySelector('.cards__grid');
 
+// Для нормальной валидации форм при открытии
+const eventInput = new Event('input');
 
 // Обработчик «отправки» формы
 const handleSubmitEditProfile = evt => {
@@ -137,14 +139,15 @@ formAddCard.addEventListener('submit', handleSubmitAddCard);
 openEditProfileButton.addEventListener('click', () => {
   personNameInput.value = personName.textContent;
   personJobInput.value = personJob.textContent;
-  const event = new Event('input');
-  personNameInput.dispatchEvent(event);
-  personJobInput.dispatchEvent(event);
+  personNameInput.dispatchEvent(eventInput);
+  personJobInput.dispatchEvent(eventInput);
   openPopup(popupEditProfile);
 });
 openAddCardButton.addEventListener('click', () => {
   cardPlaceInput.value = '';
   cardLinkInput.value = '';
+  cardPlaceInput.dispatchEvent(eventInput);
+  cardLinkInput.dispatchEvent(eventInput);
   openPopup(popupAddCard);
 });
 closeEditProfileButton.addEventListener('click', () => {
