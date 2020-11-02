@@ -34,6 +34,9 @@ export const config = {
   errorClass: 'popup__input-error_active'
 };
 
+export const popupPhotoImage = document.querySelector('.popup__photo');
+export const popupPhotoTitle = document.querySelector('.popup__title-photo');
+
 // Находим модалку редактирования профиля и форму  в DOM
 export const popupEditProfile = document.querySelector('.popup_type_edit-profile');
 export const formEditProfile = popupEditProfile.querySelector('.popup__form');
