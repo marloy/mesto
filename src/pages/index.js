@@ -1,8 +1,9 @@
-import Card from './Card.js';
-import FormValidator from './FormValidator.js';
-
-// Для нормальной валидации форм при открытии
-const eventInput = new Event('input');
+import Card from '../components/Card.js';
+import FormValidator from '../components/FormValidator.js';
+import PopupWithForm from '../components/PopupWithForm.js';
+import PopupWithImage from '../components/PopupWithImage.js';
+import Section from '../components/Section.js';
+import UserInfo from '../components/UserInfo.js';
 
 // Обработчик «отправки» формы
 const handleSubmitEditProfile = evt => {
