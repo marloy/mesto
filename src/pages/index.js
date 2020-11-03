@@ -5,6 +5,16 @@ import PopupWithImage from '../components/PopupWithImage.js';
 import Section from '../components/Section.js';
 import UserInfo from '../components/UserInfo.js';
 
+import {
+  initialCards
+} from '../utils/constants.js';
+
+
+const cardsList = new Section({
+  items: initialCards,
+
+});
+
 // Обработчик «отправки» формы
 const handleSubmitEditProfile = evt => {
     evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы
