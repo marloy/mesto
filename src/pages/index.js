@@ -11,22 +11,40 @@ import {
   openAddCardButton,
   config,
   personNameInput,
-  personJobInput
+  personJobInput,
+  cardPlaceInput,
+  cardLinkInput,
+  popupPhotoSelector,
+  personNameSelector,
+  personJobSelector,
+  popupEditProfileSelector,
+  cardsTemplateSelector,
+  cardsContainerSelector,
+  popupAddCardSelector
 } from '../utils/constants.js';
 
-
-const popupImage = new PopupWithImage('.popup_type_photo');
-popupImage.setEventListeners();
-
-const userInfo = new UserInfo({ personNameSelector: '.profile__name', personJobSelector: '.profile__job' });
+const eventInput = new Event('input');
+const popupImage = new PopupWithImage(popupPhotoSelector);
+const userInfo = new UserInfo({ personNameSelector, personJobSelector });
 
 const popupEditProfile = new PopupWithForm({
   handleSubmitForm: item => {
     userInfo.setUserInfo(item);
     popupEditProfile.close();
   }
-}, '.popup_type_edit-profile');
-popupEditProfile.setEventListeners();
+}, popupEditProfileSelector);
+
+const cardsList = new Section({
+  items: initialCards,
+  renderer: item => cardsList.addItem(createCard(item))
+}, cardsContainerSelector);
+
+const popupAddCard = new PopupWithForm({
+  handleSubmitForm: item => {
+    cardsList.addItem(createCard({name: item.placeInput, link: item.linkInput}));
+    popupAddCard.close();
+  }
+}, popupAddCardSelector);
 
 const createCard = data => {
   const card = new Card({
@@ -34,15 +52,11 @@ const createCard = data => {
     handleCardClick: itemImage => {
       popupImage.open(itemImage);
     }
-  }, '.cards-template');
+  }, cardsTemplateSelector);
 
   return card.getCardElement();
 }
 
-const cardsList = new Section({
-  items: initialCards,
-  renderer: item => cardsList.addItem(createCard(item))
-}, '.cards__grid');
 const enableValidation = config => {
   const formlist = Array.from(document.querySelectorAll(config.formSelector));
   formlist.forEach(formElement => {
@@ -51,15 +65,24 @@ const enableValidation = config => {
   })
 }
 
+popupEditProfile.setEventListeners();
+popupImage.setEventListeners();
+popupAddCard.setEventListeners();
+
 // Прикрепляем функции к кнопкам
 openEditProfileButton.addEventListener('click', () => {
   const info = userInfo.getUserInfo();
   personNameInput.value = info.name;
   personJobInput.value = info.job;
+  personNameInput.dispatchEvent(eventInput);
+  personJobInput.dispatchEvent(eventInput);
   popupEditProfile.open();
 });
 
 openAddCardButton.addEventListener('click', () => {
+  cardPlaceInput.dispatchEvent(eventInput);
+  cardLinkInput.dispatchEvent(eventInput);
+  popupAddCard.open()
 });
 
 cardsList.renderItems();

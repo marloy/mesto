@@ -34,8 +34,13 @@ export const config = {
   errorClass: 'popup__input-error_active'
 };
 
-export const popupPhotoImage = document.querySelector('.popup__photo');
-export const popupPhotoTitle = document.querySelector('.popup__title-photo');
+export const popupPhotoSelector = '.popup_type_photo';
+export const personNameSelector = '.profile__name';
+export const personJobSelector = '.profile__job';
+export const popupEditProfileSelector = '.popup_type_edit-profile';
+export const cardsTemplateSelector = '.cards-template';
+export const cardsContainerSelector = '.cards__grid';
+export const popupAddCardSelector = '.popup_type_add-card';
 
 // Находим модалку редактирования профиля и форму  в DOM
 export const popupEditProfile = document.querySelector('.popup_type_edit-profile');
@@ -55,15 +60,13 @@ export const cardLinkInput = formAddCard.querySelector('.popup__input_el_link');
 
 // Находим кнопки модалки редактирования профиля
 export const openEditProfileButton = document.querySelector('.profile__edit-button');
-export const closeEditProfileButton = popupEditProfile.querySelector('.popup__close-button');
 
 // Находим кнопки модалки добавления карточки
 export const openAddCardButton = document.querySelector('.profile__add-button');
-export const closeAddCardButton = popupAddCard.querySelector('.popup__close-button');
 
-// Находим элементы с именем и родом деятельности
-export const personName = document.querySelector('.profile__name');
-export const personJob = document.querySelector('.profile__job');
+export const popupPhotoImage = document.querySelector('.popup__photo');
+export const popupPhotoTitle = document.querySelector('.popup__title-photo');
 
-// Шаблон и место вставки созданных карточек
-export const cardGrid = document.querySelector('.cards__grid');
+
+
+
