@@ -6,67 +6,43 @@ import Section from '../components/Section.js';
 import UserInfo from '../components/UserInfo.js';
 
 import {
-  initialCards
+  initialCards,
+  openEditProfileButton,
+  openAddCardButton,
+  config,
+  personNameInput,
+  personJobInput
 } from '../utils/constants.js';
 
 
+const popupImage = new PopupWithImage('.popup_type_photo');
+popupImage.setEventListeners();
+
+const userInfo = new UserInfo({ personNameSelector: '.profile__name', personJobSelector: '.profile__job' });
+
+const popupEditProfile = new PopupWithForm({
+  handleSubmitForm: item => {
+    userInfo.setUserInfo(item);
+    popupEditProfile.close();
+  }
+}, '.popup_type_edit-profile');
+popupEditProfile.setEventListeners();
+
+const createCard = data => {
+  const card = new Card({
+    data,
+    handleCardClick: itemImage => {
+      popupImage.open(itemImage);
+    }
+  }, '.cards-template');
+
+  return card.getCardElement();
+}
+
 const cardsList = new Section({
   items: initialCards,
-
-});
-
-// Обработчик «отправки» формы
-const handleSubmitEditProfile = evt => {
-    evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы
-    // Новые значения с помощью textContent
-    personName.textContent = personNameInput.value;
-    personJob.textContent = personJobInput.value;
-    closePopup(popupEditProfile);
-}
-
-const handleSubmitAddCard = evt => {
-  evt.preventDefault();
-  const element = {name: cardPlaceInput.value, link: cardLinkInput.value};
-  const card = new Card(element, '.cards-template', openPopup, closePopup);
-  cardGrid.prepend(card.getCardElement());
-  closePopup(popupAddCard);
-}
-
-const handleKey = evt => {
-  if (evt.key === 'Escape') {
-    closePopup(evt.currentTarget.querySelector('.popup_opened'));
-  }
-}
-
-// Закрытие по нажатию мыши на оверлей
-const handleClickOnOverlay = evt => {
-  if (evt.target.classList.contains('popup')) {
-    closePopup(evt.currentTarget);
-  }
-}
-
-// Открыть попап
-const openPopup = modal => {
-  modal.addEventListener('click', handleClickOnOverlay);
-  document.addEventListener('keydown', handleKey);
-  modal.classList.add('popup_opened');
-}
-
-// Закрыть попап
-const closePopup = modal => {
-  modal.removeEventListener('click', handleClickOnOverlay);
-  document.removeEventListener('keydown', handleKey);
-  modal.classList.remove('popup_opened');
-}
-
-// Загрузка картинок на страницу из массива
-const renderCards = data => {
-  data.forEach(element => {
-    const card = new Card(element, '.cards-template', openPopup, closePopup);
-    cardGrid.append(card.getCardElement());
-  });
-}
-
+  renderer: item => cardsList.addItem(createCard(item))
+}, '.cards__grid');
 const enableValidation = config => {
   const formlist = Array.from(document.querySelectorAll(config.formSelector));
   formlist.forEach(formElement => {
@@ -75,31 +51,16 @@ const enableValidation = config => {
   })
 }
 
-// Прикрепляем обработчик к форме
-formEditProfile.addEventListener('submit', handleSubmitEditProfile);
-formAddCard.addEventListener('submit', handleSubmitAddCard);
-
 // Прикрепляем функции к кнопкам
 openEditProfileButton.addEventListener('click', () => {
-  personNameInput.value = personName.textContent;
-  personJobInput.value = personJob.textContent;
-  personNameInput.dispatchEvent(eventInput);
-  personJobInput.dispatchEvent(eventInput);
-  openPopup(popupEditProfile);
+  const info = userInfo.getUserInfo();
+  personNameInput.value = info.name;
+  personJobInput.value = info.job;
+  popupEditProfile.open();
 });
-openAddCardButton.addEventListener('click', () => {
-  cardPlaceInput.value = '';
-  cardLinkInput.value = '';
-  cardPlaceInput.dispatchEvent(eventInput);
-  cardLinkInput.dispatchEvent(eventInput);
-  openPopup(popupAddCard);
-});
-closeEditProfileButton.addEventListener('click', () => {
-  closePopup(popupEditProfile);
-});
-closeAddCardButton.addEventListener('click', () => {
-  closePopup(popupAddCard);
-})
 
-renderCards(initialCards);
+openAddCardButton.addEventListener('click', () => {
+});
+
+cardsList.renderItems();
 enableValidation(config);

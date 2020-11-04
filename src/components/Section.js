@@ -5,12 +5,12 @@ export default class Section {
     this._container = document.querySelector(containerSelector);
   }
 
-  clearContainer() {
+  _clearContainer() {
     this._container.innerHTML = '';
   }
 
   renderItems() {
-    this.clearContainer();
+    this._clearContainer();
 
     this._renderedItems.forEach(item => {
       this._renderer(item);
