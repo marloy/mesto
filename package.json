@@ -4,7 +4,7 @@
   "description": "Место — это сайт с карточками мест России.\r Ссылка на сайт https://marloy.github.io/mesto\r ## Описание\r Сайт был выполнен в качестве проектной работы Яндекс.Практикума. На странице имеется возможность редактирования имени и рода деятельности. В будущем появится возможность добавлять и удалять карточки.",
   "main": "index.js",
   "scripts": {
-    "build": "rm -rf dist && webpack",
+    "build": "rimraf dist && webpack",
     "dev": "webpack serve --mode development",
     "deploy": "gh-pages -d dist"
   },

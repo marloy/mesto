@@ -8,10 +8,10 @@ module.exports = {
   output: {
     filename: 'index.js',
     path: path.resolve(__dirname, 'dist'),
-    publicPath: '/'
+    publicPath: './'
   },
   devServer: {
-    contentBase:  path.join(__dirname, 'dist'),
+    contentBase:  path.join(__dirname, './dist'),
     open: true
   },
   module: {
@@ -31,10 +31,18 @@ module.exports = {
         loader: 'html-loader',
       },
       {
-        test: /\.(png|jpe?g|gif|svg|woff2)$/,
+        test: /\.(png|jpe?g|gif|svg)$/,
         use: [
           {
-            loader: 'file-loader',
+            loader: 'file-loader?name=./images/[name].[ext]',
+          },
+        ],
+      },
+      {
+        test: /\.(eot|ttf|woff|woff2)$/,
+        use: [
+          {
+            loader: 'file-loader?name=./vendor/[name].[ext]',
           },
         ],
       },
