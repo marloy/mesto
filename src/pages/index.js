@@ -14,19 +14,18 @@ import {
   config,
   personNameInput,
   personJobInput,
-  cardPlaceInput,
-  cardLinkInput,
   popupPhotoSelector,
   personNameSelector,
   personJobSelector,
   popupEditProfileSelector,
   cardsTemplateSelector,
   cardsContainerSelector,
-  popupAddCardSelector
+  popupAddCardSelector,
+  popupPhotoImage,
+  popupPhotoTitle
 } from '../utils/constants.js';
 
-const eventInput = new Event('input');
-const popupImage = new PopupWithImage(popupPhotoSelector);
+const popupImage = new PopupWithImage(popupPhotoSelector, popupPhotoImage, popupPhotoTitle);
 const userInfo = new UserInfo({ personNameSelector, personJobSelector });
 
 const popupEditProfile = new PopupWithForm({
@@ -60,8 +59,8 @@ const createCard = data => {
 }
 
 const enableValidation = config => {
-  const formlist = Array.from(document.querySelectorAll(config.formSelector));
-  formlist.forEach(formElement => {
+  const formList = Array.from(document.querySelectorAll(config.formSelector));
+  formList.forEach(formElement => {
     const validator = new FormValidator(config, formElement);
     validator.enableValidation();
   })
@@ -76,14 +75,10 @@ openEditProfileButton.addEventListener('click', () => {
   const info = userInfo.getUserInfo();
   personNameInput.value = info.name;
   personJobInput.value = info.job;
-  personNameInput.dispatchEvent(eventInput);
-  personJobInput.dispatchEvent(eventInput);
   popupEditProfile.open();
 });
 
 openAddCardButton.addEventListener('click', () => {
-  cardPlaceInput.dispatchEvent(eventInput);
-  cardLinkInput.dispatchEvent(eventInput);
   popupAddCard.open()
 });
 
