@@ -9,7 +9,7 @@ module.exports = {
   output: {
     filename: 'index.js',
     path: path.resolve(__dirname, 'dist'),
-    publicPath: '/'
+    publicPath: '/mesto/'
   },
   devServer: {
     contentBase:  path.resolve(__dirname, 'dist'),
