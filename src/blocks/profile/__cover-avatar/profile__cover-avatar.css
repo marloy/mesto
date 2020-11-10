@@ -1,0 +1,25 @@
+.profile__cover-avatar {
+  position: relative;
+  cursor: pointer;
+  margin-right: 30px;
+}
+
+.profile__cover-avatar::before {
+  content: "";
+  background-color: rgba(0, 0, 0, .8);
+  background-image: url(../../../images/profile-edit-button.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 26px;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transition: ease-out .15s opacity;
+}
+
+.profile__cover-avatar:hover::before {
+  opacity: 1;
+}
