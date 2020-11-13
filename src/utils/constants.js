@@ -37,6 +37,7 @@ export const config = {
 export const popupPhotoSelector = '.popup_type_photo';
 export const personNameSelector = '.profile__name';
 export const personJobSelector = '.profile__job';
+export const personAvatarSelector = '.profile__avatar';
 export const popupEditProfileSelector = '.popup_type_edit-profile';
 export const cardsTemplateSelector = '.cards-template';
 export const cardsContainerSelector = '.cards__grid';
