@@ -28,7 +28,8 @@ import {
 
 const profileConfig = {
   token: '033f0036-9ee8-4b41-8ee5-5354d3c009cf',
-  cohortId: 'cohort-17'
+  cohortId: 'cohort-17',
+  baseURL: 'https://mesto.nomoreparties.co'
 }
 
 const popupImage = new PopupWithImage(popupPhotoSelector, popupPhotoImage, popupPhotoTitle);
@@ -38,6 +39,13 @@ const userInfo = new UserInfo({
     personJobSelector,
     personAvatarSelector
   });
+
+const cardsList = new Section({
+  renderer: item => cardsList.addItemAppend(createCard(item))
+}, cardsContainerSelector);
+api.getInitialCards().then(res => {
+  cardsList.renderItems(res)
+});
 
 const popupEditProfile = new PopupWithForm({
   handleSubmitForm: item => {
@@ -50,18 +58,12 @@ const popupEditProfile = new PopupWithForm({
 
 const popupAddCard = new PopupWithForm({
   handleSubmitForm: item => {
-    cardsList.addItem(createCard({name: item.placeInput, link: item.linkInput}));
+    api.saveCard(item).then(data => {
+      cardsList.addItemPrepend(createCard(data));
+    })
     popupAddCard.close();
   }
 }, popupAddCardSelector);
-
-api.getInitialCards().then(data => {
-  const cardsList = new Section({
-    items: data,
-    renderer: item => cardsList.addItem(createCard(item))
-  }, cardsContainerSelector);
-  cardsList.renderItems();
-});
 
 const createCard = data => {
   const card = new Card({

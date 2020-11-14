@@ -3,6 +3,7 @@ class Card {
     this._cardSelector = cardSelector;
     this._name = data.name;
     this._link = data.link;
+    this._likes = data.likes;
     this._handleCardClick = handleCardClick;
   }
 
@@ -40,6 +41,7 @@ class Card {
     this._setEventListeners();
 
     this._element.querySelector('.cards__location').textContent = this._name;
+    this._element.querySelector('.cards__like-counter').textContent = this._likes.length;
     this._cardImage.src = this._link;
     this._cardImage.alt = this._name;
 

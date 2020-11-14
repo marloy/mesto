@@ -5,6 +5,7 @@
 
 export default class Api {
   constructor(config) {
+    this._baseURL = config.baseURL;
     this._cohortId = config.cohortId;
     this._token = config.token;
   }
@@ -28,7 +29,7 @@ export default class Api {
   }
 
   saveUserInfo(data) {
-    return fetch(`https://mesto.nomoreparties.co/v1/${this._cohortId}/users/me`, {
+    return fetch(`${this._baseURL}/v1/${this._cohortId}/users/me`, {
       method: 'PATCH',
       headers: {
         authorization: this._token,
@@ -56,6 +57,30 @@ export default class Api {
       headers: {
         authorization: this._token
       }
+    })
+      .then(res => {
+        if(res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Ошибка: ${res.status} ${res.statusText}`);
+      })
+      .then(data => {
+        return data;
+      })
+      .catch(err => console.log(err));
+  }
+
+  saveCard(data) {
+    return fetch(`${this._baseURL}/v1/${this._cohortId}/cards`, {
+      method: 'POST',
+      headers: {
+        authorization: this._token,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: data.name,
+        link: data.link
+      })
     })
       .then(res => {
         if(res.ok) {
