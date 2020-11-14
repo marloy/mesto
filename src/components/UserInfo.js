@@ -13,9 +13,12 @@ export default class UserInfo {
     return userData;
   }
 
+  setUserAvatar(data) {
+    this._personAvatarElement.src = data.avatar;
+  }
+
   setUserInfo(data) {
     this._personNameElement.textContent = data.name;
     this._personJobElement.textContent = data.about;
-    this._personAvatarElement.src = data.avatar;
   }
 }

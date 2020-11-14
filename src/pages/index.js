@@ -9,7 +9,6 @@ import UserInfo from '../components/UserInfo.js';
 import Api from '../components/Api.js'
 
 import {
-  initialCards,
   openEditProfileButton,
   openAddCardButton,
   config,
@@ -27,24 +26,27 @@ import {
   popupPhotoTitle
 } from '../utils/constants.js';
 
-const token = '033f0036-9ee8-4b41-8ee5-5354d3c009cf';
-const cohortId = 'cohort-17';
+const profileConfig = {
+  token: '033f0036-9ee8-4b41-8ee5-5354d3c009cf',
+  cohortId: 'cohort-17'
+}
 
 const popupImage = new PopupWithImage(popupPhotoSelector, popupPhotoImage, popupPhotoTitle);
-const api = new Api(token, cohortId);
+const api = new Api(profileConfig);
+const userInfo = new UserInfo({
+    personNameSelector,
+    personJobSelector,
+    personAvatarSelector
+  });
 
-const userInfo = new UserInfo({ personNameSelector, personJobSelector, personAvatarSelector });
 const popupEditProfile = new PopupWithForm({
   handleSubmitForm: item => {
-    userInfo.setUserInfo(item);
+    api.saveUserInfo(item).then(data => {
+      userInfo.setUserInfo(data);
+    })
     popupEditProfile.close();
   }
 }, popupEditProfileSelector);
-
-const cardsList = new Section({
-  items: initialCards,
-  renderer: item => cardsList.addItem(createCard(item))
-}, cardsContainerSelector);
 
 const popupAddCard = new PopupWithForm({
   handleSubmitForm: item => {
@@ -52,6 +54,14 @@ const popupAddCard = new PopupWithForm({
     popupAddCard.close();
   }
 }, popupAddCardSelector);
+
+api.getInitialCards().then(data => {
+  const cardsList = new Section({
+    items: data,
+    renderer: item => cardsList.addItem(createCard(item))
+  }, cardsContainerSelector);
+  cardsList.renderItems();
+});
 
 const createCard = data => {
   const card = new Card({
@@ -89,7 +99,8 @@ openAddCardButton.addEventListener('click', () => {
 });
 
 api.getUserInfo().then(data => {
+  userInfo.setUserAvatar(data);
   userInfo.setUserInfo(data);
-})
-cardsList.renderItems();
+});
+
 enableValidation(config);
