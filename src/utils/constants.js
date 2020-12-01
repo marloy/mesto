@@ -35,6 +35,7 @@ export const config = {
 };
 
 export const popupPhotoSelector = '.popup_type_photo';
+export const popupDeleteCardSelector = '.popup_type_delete-card';
 export const personNameSelector = '.profile__name';
 export const personJobSelector = '.profile__job';
 export const personAvatarSelector = '.profile__avatar';
@@ -61,7 +62,6 @@ export const cardLinkInput = formAddCard.querySelector('.popup__input_el_link');
 
 // Находим кнопки модалки редактирования профиля
 export const openEditProfileButton = document.querySelector('.profile__edit-button');
-
 // Находим кнопки модалки добавления карточки
 export const openAddCardButton = document.querySelector('.profile__add-button');
 

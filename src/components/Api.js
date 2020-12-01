@@ -6,12 +6,12 @@
 export default class Api {
   constructor(config) {
     this._baseURL = config.baseURL;
-    this._cohortId = config.cohortId;
+    this._cohortID = config.cohortID;
     this._token = config.token;
   }
 
   getUserInfo() {
-    return fetch(`https://mesto.nomoreparties.co/v1/${this._cohortId}/users/me`, {
+    return fetch(`${this._baseURL}/v1/${this._cohortID}/users/me`, {
       headers: {
         authorization: this._token
       }
@@ -29,7 +29,7 @@ export default class Api {
   }
 
   saveUserInfo(data) {
-    return fetch(`${this._baseURL}/v1/${this._cohortId}/users/me`, {
+    return fetch(`${this._baseURL}/v1/${this._cohortID}/users/me`, {
       method: 'PATCH',
       headers: {
         authorization: this._token,
@@ -53,7 +53,7 @@ export default class Api {
   }
 
   getInitialCards() {
-    return fetch(`https://mesto.nomoreparties.co/v1/${this._cohortId}/cards`, {
+    return fetch(`${this._baseURL}/v1/${this._cohortID}/cards`, {
       headers: {
         authorization: this._token
       }
@@ -71,7 +71,7 @@ export default class Api {
   }
 
   saveCard(data) {
-    return fetch(`${this._baseURL}/v1/${this._cohortId}/cards`, {
+    return fetch(`${this._baseURL}/v1/${this._cohortID}/cards`, {
       method: 'POST',
       headers: {
         authorization: this._token,
@@ -90,6 +90,23 @@ export default class Api {
       })
       .then(data => {
         return data;
+      })
+      .catch(err => console.log(err));
+  }
+
+  deleteCard(data) {
+    return fetch(`${this._baseURL}/v1/${this._cohortID}/cards/${data._id}`, {
+      method: 'DELETE',
+      headers: {
+        authorization: this._token,
+        'Content-Type': 'application/json'
+      },
+    })
+      .then(res => {
+        if(res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Ошибка: ${res.status} ${res.statusText}`);
       })
       .catch(err => console.log(err));
   }

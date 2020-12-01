@@ -4,6 +4,7 @@ import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import PopupWithImage from '../components/PopupWithImage.js';
+import PopupDeleteCard from '../components/PopupDeleteCard.js';
 import Section from '../components/Section.js';
 import UserInfo from '../components/UserInfo.js';
 import Api from '../components/Api.js'
@@ -14,6 +15,7 @@ import {
   config,
   personNameInput,
   personJobInput,
+  popupDeleteCardSelector,
   popupPhotoSelector,
   personNameSelector,
   personJobSelector,
@@ -28,12 +30,13 @@ import {
 
 const profileConfig = {
   token: '033f0036-9ee8-4b41-8ee5-5354d3c009cf',
-  cohortId: 'cohort-17',
+  cohortID: 'cohort-17',
   baseURL: 'https://mesto.nomoreparties.co'
 }
 
-const popupImage = new PopupWithImage(popupPhotoSelector, popupPhotoImage, popupPhotoTitle);
 const api = new Api(profileConfig);
+const popupImage = new PopupWithImage(popupPhotoSelector, popupPhotoImage, popupPhotoTitle);
+const poopupDeleteCard = new PopupDeleteCard(popupDeleteCardSelector);
 const userInfo = new UserInfo({
     personNameSelector,
     personJobSelector,
@@ -43,9 +46,6 @@ const userInfo = new UserInfo({
 const cardsList = new Section({
   renderer: item => cardsList.addItemAppend(createCard(item))
 }, cardsContainerSelector);
-api.getInitialCards().then(res => {
-  cardsList.renderItems(res)
-});
 
 const popupEditProfile = new PopupWithForm({
   handleSubmitForm: item => {
@@ -70,8 +70,22 @@ const createCard = data => {
     data,
     handleCardClick: itemImage => {
       popupImage.open(itemImage);
-    }
+    },
+    handleCardDelete: () => {
+      poopupDeleteCard.open();
+      poopupDeleteCard.setSubmitAction(() => {
+        api.deleteCard(card).then((res) => {
+          console.log(res);
+          card.deleteCard();
+        });
+        poopupDeleteCard.close();
+      });
+    },
   }, cardsTemplateSelector);
+
+  api.getUserInfo().then(res => {
+    card.showDeleteButton(res._id);
+  })
 
   return card.getCardElement();
 }
@@ -84,6 +98,7 @@ const enableValidation = config => {
   })
 }
 
+poopupDeleteCard.setEventListeners();
 popupEditProfile.setEventListeners();
 popupImage.setEventListeners();
 popupAddCard.setEventListeners();
@@ -103,6 +118,10 @@ openAddCardButton.addEventListener('click', () => {
 api.getUserInfo().then(data => {
   userInfo.setUserAvatar(data);
   userInfo.setUserInfo(data);
+});
+
+api.getInitialCards().then(res => {
+  cardsList.renderItems(res)
 });
 
 enableValidation(config);
