@@ -28,17 +28,11 @@ export default class Api {
       .catch(err => console.log(err));
   }
 
-  saveUserInfo(data) {
-    return fetch(`${this._baseURL}/v1/${this._cohortID}/users/me`, {
-      method: 'PATCH',
+  getInitialCards() {
+    return fetch(`${this._baseURL}/v1/${this._cohortID}/cards`, {
       headers: {
-        authorization: this._token,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        name: data.name,
-        about: data.about
-      })
+        authorization: this._token
+      }
     })
       .then(res => {
         if(res.ok) {
@@ -52,11 +46,21 @@ export default class Api {
       .catch(err => console.log(err));
   }
 
-  getInitialCards() {
-    return fetch(`${this._baseURL}/v1/${this._cohortID}/cards`, {
+  getAllNeededData() {
+    return Promise.all([ this.getUserInfo(), this.getInitialCards()] );
+  }
+
+  saveUserInfo(data) {
+    return fetch(`${this._baseURL}/v1/${this._cohortID}/users/me`, {
+      method: 'PATCH',
       headers: {
-        authorization: this._token
-      }
+        authorization: this._token,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: data.name,
+        about: data.about
+      })
     })
       .then(res => {
         if(res.ok) {
@@ -107,6 +111,44 @@ export default class Api {
           return res.json();
         }
         return Promise.reject(`Ошибка: ${res.status} ${res.statusText}`);
+      })
+      .catch(err => console.log(err));
+  }
+
+  setLike(data) {
+    return fetch(`${this._baseURL}/v1/${this._cohortID}/cards/likes/${data._id}`, {
+      method: 'PUT',
+      headers: {
+        authorization: this._token
+      }
+    })
+      .then(res => {
+        if(res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Ошибка: ${res.status} ${res.statusText}`);
+      })
+      .then(data => {
+        return data;
+      })
+      .catch(err => console.log(err));
+  }
+
+  deleteLike(data) {
+    return fetch(`${this._baseURL}/v1/${this._cohortID}/cards/likes/${data._id}`, {
+      method: 'DELETE',
+      headers: {
+        authorization: this._token
+      }
+    })
+      .then(res => {
+        if(res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Ошибка: ${res.status} ${res.statusText}`);
+      })
+      .then(data => {
+        return data;
       })
       .catch(err => console.log(err));
   }

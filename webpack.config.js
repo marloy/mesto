@@ -11,8 +11,9 @@ module.exports = {
     publicPath: './'
   },
   devServer: {
-    contentBase:  path.join(__dirname, './dist'),
-    open: true
+    contentBase:  path.resolve(__dirname, './dist'),
+    open: true,
+    port: 5500
   },
   module: {
     rules: [
