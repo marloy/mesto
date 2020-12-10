@@ -1,8 +1,3 @@
-// Токен: 37682f5b-4bfd-4bac-9745-591da8798f65
-// Идентификатор группы: cohort-18
-// https://mesto.nomoreparties.co
-// Идентификатор группы должен быть в URL сразу после v1. Всегда обращайтесь к своей группе. Если обратиться к чужой, сервер вернёт ошибку.import './index.css';
-
 export default class Api {
   constructor(config) {
     this._baseURL = config.baseURL;
