@@ -1,4 +1,4 @@
-import Popup from '../components/Popup.js'
+import Popup from "../components/Popup.js";
 
 export default class PopupDeleteCard extends Popup {
   constructor(popupDeleteCardSelector) {
@@ -12,9 +12,9 @@ export default class PopupDeleteCard extends Popup {
   setEventListeners() {
     super.setEventListeners();
 
-    this._popup.addEventListener('submit', (evt) => {
+    this._popup.addEventListener("submit", (evt) => {
       evt.preventDefault();
       this._handleSubmit();
-    })
+    });
   }
 }

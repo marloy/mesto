@@ -5,13 +5,13 @@ export default class Section {
   }
 
   _clearContainer() {
-    this._container.innerHTML = '';
+    this._container.innerHTML = "";
   }
 
   renderItems(items) {
     this._clearContainer();
 
-    items.forEach(item => {
+    items.forEach((item) => {
       this._renderer(item);
     });
   }
