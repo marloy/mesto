@@ -81,7 +81,7 @@ const popupUpdateAvatar = new PopupWithForm(
         userInfo.setUserAvatar(data);
       }).finally(() => {
         popupUpdateAvatar.close();
-        updateAvatarFormValidator.enableValidation();
+        updateAvatarFormValidator.updateValidation();
         submitUpdateAvatarButton.textContent = "Сохранить";
       });
     },
@@ -168,6 +168,7 @@ popupAddCard.setEventListeners();
 
 // Прикрепляем функции к кнопкам
 openEditProfileButton.addEventListener("click", () => {
+  editProfileFormValidator.updateValidation();
   const info = userInfo.getUserInfo();
   personNameInput.value = info.name;
   personJobInput.value = info.job;
@@ -175,10 +176,12 @@ openEditProfileButton.addEventListener("click", () => {
 });
 
 openAddCardButton.addEventListener("click", () => {
+  addCardFormValidator.updateValidation();
   popupAddCard.open();
 });
 
 openUpdateAvatarButton.addEventListener("click", () => {
+  updateAvatarFormValidator.updateValidation();
   popupUpdateAvatar.open();
 });
 

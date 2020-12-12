@@ -77,7 +77,6 @@ export default class Api {
         }
         return Promise.reject(`Ошибка: ${res.status} ${res.statusText}`);
       })
-      .catch((err) => console.log(err));
   }
 
   saveCard(data) {
