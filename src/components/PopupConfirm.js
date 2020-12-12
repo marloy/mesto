@@ -1,8 +1,8 @@
-import Popup from "../components/Popup.js";
+import Popup from "./Popup.js";
 
-export default class PopupDeleteCard extends Popup {
-  constructor(popupDeleteCardSelector) {
-    super(popupDeleteCardSelector);
+export default class PopupConfirm extends Popup {
+  constructor(PopupConfirmSelector) {
+    super(PopupConfirmSelector);
   }
 
   setSubmitAction(action) {

@@ -16,8 +16,7 @@ export default class Api {
           return res.json();
         }
         return Promise.reject(`Ошибка: ${res.status} ${res.statusText}`);
-      })
-      .catch((err) => console.log(err));
+      });
   }
 
   getInitialCards() {
@@ -31,8 +30,7 @@ export default class Api {
           return res.json();
         }
         return Promise.reject(`Ошибка: ${res.status} ${res.statusText}`);
-      })
-      .catch((err) => console.log(err));
+      });
   }
 
   getAllNeededData() {
@@ -56,8 +54,7 @@ export default class Api {
           return res.json();
         }
         return Promise.reject(`Ошибка: ${res.status} ${res.statusText}`);
-      })
-      .catch((err) => console.log(err));
+      });
   }
 
   saveAvatar(data) {
@@ -96,8 +93,7 @@ export default class Api {
           return res.json();
         }
         return Promise.reject(`Ошибка: ${res.status} ${res.statusText}`);
-      })
-      .catch((err) => console.log(err));
+      });
   }
 
   deleteCard(data) {
@@ -113,8 +109,7 @@ export default class Api {
           return res.json();
         }
         return Promise.reject(`Ошибка: ${res.status} ${res.statusText}`);
-      })
-      .catch((err) => console.log(err));
+      });
   }
 
   setLike(data) {
@@ -132,8 +127,7 @@ export default class Api {
           return res.json();
         }
         return Promise.reject(`Ошибка: ${res.status} ${res.statusText}`);
-      })
-      .catch((err) => console.log(err));
+      });
   }
 
   deleteLike(data) {
@@ -151,7 +145,6 @@ export default class Api {
           return res.json();
         }
         return Promise.reject(`Ошибка: ${res.status} ${res.statusText}`);
-      })
-      .catch((err) => console.log(err));
+      });
   }
 }
