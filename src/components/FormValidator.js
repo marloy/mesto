@@ -1,7 +1,7 @@
 class FormValidator {
-  constructor(config, element) {
+  constructor(config, popupSelector) {
     this._config = config;
-    this._element = element;
+    this._element = document.querySelector(popupSelector);
   }
 
   _showErrorMessage(inputElement, errorMessage) {

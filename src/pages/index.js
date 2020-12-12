@@ -41,6 +41,10 @@ const profileConfig = {
 
 let userID = null;
 
+const editProfileFormValidator = new FormValidator(config, popupEditProfileSelector);
+const updateAvatarFormValidator = new FormValidator(config, popupUpdateAvatarSelector);
+const addCardFormValidator = new FormValidator(config, popupAddCardSelector);
+
 const api = new Api(profileConfig);
 const popupImage = new PopupWithImage(
   popupPhotoSelector,
@@ -75,8 +79,11 @@ const popupUpdateAvatar = new PopupWithForm(
       submitUpdateAvatarButton.textContent = "Сохранение...";
       api.saveAvatar(item).then(data => {
         userInfo.setUserAvatar(data);
-      }).finally(() => submitUpdateAvatarButton.textContent = "Сохранить");
-      popupUpdateAvatar.close();
+      }).finally(() => {
+        popupUpdateAvatar.close();
+        updateAvatarFormValidator.enableValidation();
+        submitUpdateAvatarButton.textContent = "Сохранить";
+      });
     },
   },
   popupUpdateAvatarSelector,
@@ -88,8 +95,10 @@ const popupEditProfile = new PopupWithForm(
       submitEditProfileButton.textContent = "Сохранение...";
       api.saveUserInfo(item).then((data) => {
         userInfo.setUserInfo(data);
-      }).finally(() => submitEditProfileButton.textContent = "Сохранить");
-      popupEditProfile.close();
+      }).finally(() => {
+        popupEditProfile.close();
+        submitEditProfileButton.textContent = "Сохранить";
+      });
     },
   },
   popupEditProfileSelector
@@ -101,9 +110,10 @@ const popupAddCard = new PopupWithForm(
       submitAddCardButton.textContent = "Сохранение...";
       api.saveCard(item).then((data) => {
         cardsList.addItemPrepend(createCard(data));
-      }).finally(() => submitAddCardButton.textContent = "Создать");
-
-      popupAddCard.close();
+      }).finally(() => {
+        popupAddCard.close();
+        submitAddCardButton.textContent = "Создать"
+      });
     },
   },
   popupAddCardSelector
@@ -144,12 +154,10 @@ const createCard = (data) => {
   return card.getCardElement();
 };
 
-const enableValidation = (config) => {
-  const formList = Array.from(document.querySelectorAll(config.formSelector));
-  formList.forEach((formElement) => {
-    const validator = new FormValidator(config, formElement);
-    validator.enableValidation();
-  });
+const enableValidation = () => {
+  editProfileFormValidator.enableValidation();
+  updateAvatarFormValidator.enableValidation();
+  addCardFormValidator.enableValidation();
 };
 
 popupUpdateAvatar.setEventListeners();
@@ -174,4 +182,4 @@ openUpdateAvatarButton.addEventListener("click", () => {
   popupUpdateAvatar.open();
 });
 
-enableValidation(config);
+enableValidation();
