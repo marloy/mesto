@@ -60,7 +60,7 @@ const userInfo = new UserInfo({
 
 const cardsList = new Section(
   {
-    renderer: (item) => cardsList.addItemAppend(createCard(item)),
+    renderer: (item) => cardsList.addItem(createCard(item)),
   },
   cardsContainerSelector
 );
@@ -70,7 +70,7 @@ api.getAllNeededData().then((args) => {
   userID = userInfoFromServer._id;
   userInfo.setUserAvatar(userInfoFromServer);
   userInfo.setUserInfo(userInfoFromServer);
-  cardsList.renderItems(initialCardsFromServer);
+  cardsList.renderItems(initialCardsFromServer.reverse());
 });
 
 const popupUpdateAvatar = new PopupWithForm(
@@ -109,7 +109,7 @@ const popupAddCard = new PopupWithForm(
     handleSubmitForm: (item) => {
       submitAddCardButton.textContent = "Сохранение...";
       api.saveCard(item).then((data) => {
-        cardsList.addItemPrepend(createCard(data));
+        cardsList.addItem(createCard(data));
       }).finally(() => {
         popupAddCard.close();
         submitAddCardButton.textContent = "Создать"
@@ -168,10 +168,10 @@ popupAddCard.setEventListeners();
 
 // Прикрепляем функции к кнопкам
 openEditProfileButton.addEventListener("click", () => {
-  editProfileFormValidator.updateValidation();
   const info = userInfo.getUserInfo();
   personNameInput.value = info.name;
   personJobInput.value = info.job;
+  editProfileFormValidator.updateValidation();
   popupEditProfile.open();
 });
 
