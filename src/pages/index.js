@@ -59,7 +59,7 @@ const popupImage = new PopupWithImage(
   popupPhotoImage,
   popupPhotoTitle
 );
-const poopupDeleteCard = new PopupDeleteCard(popupDeleteCardSelector);
+const popupDeleteCard = new PopupDeleteCard(popupDeleteCardSelector);
 const userInfo = new UserInfo({
   personNameSelector,
   personJobSelector,
@@ -95,9 +95,9 @@ const popupUpdateAvatar = new PopupWithForm(
         })
         .catch((err) => console.log(err))
         .finally(() => {
-          popupUpdateAvatar.close();
           updateAvatarFormValidator.updateValidation();
-          renderLoading(false, submitUpdateAvatarButton, "Сохранить")
+          renderLoading(false, submitUpdateAvatarButton, "Сохранить");
+          popupUpdateAvatar.close();
         });
     },
   },
@@ -115,8 +115,8 @@ const popupEditProfile = new PopupWithForm(
         })
         .catch((err) => console.log(err))
         .finally(() => {
-          popupEditProfile.close();
           renderLoading(false, submitEditProfileButton, "Сохранить")
+          popupEditProfile.close();
         });
     },
   },
@@ -134,8 +134,8 @@ const popupAddCard = new PopupWithForm(
         })
         .catch((err) => console.log(err))
         .finally(() => {
-          popupAddCard.close();
           renderLoading(false, submitAddCardButton, "Создать");
+          popupAddCard.close();
         });
     },
   },
@@ -151,15 +151,15 @@ const createCard = (data) => {
         popupImage.open(itemImage);
       },
       handleCardDelete: () => {
-        poopupDeleteCard.open();
-        poopupDeleteCard.setSubmitAction(() => {
+        popupDeleteCard.open();
+        popupDeleteCard.setSubmitAction(() => {
           api
             .deleteCard(card)
             .then(() => {
               card.deleteCard();
             })
-            .catch((err) => console.log(err));
-          poopupDeleteCard.close();
+            .catch((err) => console.log(err))
+            .finally(() => popupDeleteCard.close());
         });
       },
       handleLikeClick: (isLiked) => {
@@ -193,7 +193,7 @@ const enableValidation = () => {
 };
 
 popupUpdateAvatar.setEventListeners();
-poopupDeleteCard.setEventListeners();
+popupDeleteCard.setEventListeners();
 popupEditProfile.setEventListeners();
 popupImage.setEventListeners();
 popupAddCard.setEventListeners();

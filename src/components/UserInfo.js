@@ -14,13 +14,13 @@ export default class UserInfo {
   }
 
   setUserAvatar(data) {
-    if (data !== 'underfind') {
+    if (data.avatar) {
       this._personAvatarElement.src = data.avatar;
     }
   }
 
   setUserInfo(data) {
-    if (data !== 'undefined') {
+    if (data.avatar) {
       this._personNameElement.textContent = data.name;
       this._personJobElement.textContent = data.about;
     }
