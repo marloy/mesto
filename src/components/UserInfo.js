@@ -20,9 +20,11 @@ export default class UserInfo {
   }
 
   setUserInfo(data) {
-    if (data.avatar) {
+    if (data.name) {
       this._personNameElement.textContent = data.name;
-      this._personJobElement.textContent = data.about;
+    }
+    if (data.about) {
+      this._personJobElement.textContent = data.name;
     }
   }
 }
