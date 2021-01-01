@@ -24,7 +24,7 @@ export default class UserInfo {
       this._personNameElement.textContent = data.name;
     }
     if (data.about) {
-      this._personJobElement.textContent = data.name;
+      this._personJobElement.textContent = data.about;
     }
   }
 }
